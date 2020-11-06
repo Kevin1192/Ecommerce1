@@ -8,6 +8,9 @@ import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import AuthPage from './pages/auth/auth';
 import { auth, createUserProfileDocument } from './firebase/firebase.util';
+import { connect } from 'react-redux';
+
+import { setCurrentUser } from './redux/action/user.actions';
 
 const HatsPage = () => (
   <div>
@@ -63,5 +66,8 @@ class App extends React.Component {
   );
 }
 }
+const mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch(setCurrentUser(user))
+})
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
