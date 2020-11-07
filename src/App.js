@@ -19,23 +19,18 @@ const HatsPage = () => (
 );
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      currentUser: null,
-    }
-  }
 
   unsubscribeFromAuth = null;
 
   componentDidMount() {
+    const { setCurrentUser } = this.props;
+
     this.unsubscribeFromAuth = auth.onAuthStateChanged( async userAuth => {
       if (userAuth) {
         const userRef = createUserProfileDocument(userAuth);
 
         (await userRef).onSnapshot( async snapshot => {
-          await this.setState({
+          await setCurrentUser({
             currentUser: {
               id: snapshot.id,
               ...snapshot.data(),
@@ -45,7 +40,7 @@ class App extends React.Component {
         });
 
       } else {
-        this.setState({ currentUser: userAuth })
+        setCurrentUser({ currentUser: userAuth })
       }
     });
   }
@@ -56,7 +51,7 @@ class App extends React.Component {
   render() {
   return (
     <div>
-      <Header currentUser={this.state.currentUser} />
+      <Header  />
       <Switch>
         <Route exact path='/' component={HomePage} />
         <Route path='/shop' component={ShopPage} />
