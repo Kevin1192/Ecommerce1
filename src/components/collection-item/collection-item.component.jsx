@@ -6,7 +6,7 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import './collection-item.styles.scss';
 
-const CollectionItem = ({ item, addCartItem, state }) => (
+const CollectionItem = ({ item, addCartItem }) => (
     <div className='collection-item'>
         <div className='image' style={{
             backgroundImage: `url(${item.imageUrl})`
@@ -16,14 +16,10 @@ const CollectionItem = ({ item, addCartItem, state }) => (
                 <span className='price'>{item.price}</span>
             </div>
             <CustomButton inverted onClick={() => addCartItem(item)}> Add to Cart </CustomButton>
-            {console.log(state)}
         </div>
 );
 
-const mapStateToProps = state => ({
-    state: state,
-})
 const mapDispatchToProps = dispatch => ({
     addCartItem: item => dispatch(addCartItem(item)),
 })
-export default connect(mapStateToProps, mapDispatchToProps)(CollectionItem);
+export default connect(null, mapDispatchToProps)(CollectionItem);
